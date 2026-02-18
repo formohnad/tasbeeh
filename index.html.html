@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>📿 مسبحتي</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  font-family: system-ui, sans-serif;
+}
+
+body{
+  margin:0;
+  background: linear-gradient(135deg,#0f172a,#1e293b);
+  color:white;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+}
+
+.card{
+  background:#111827;
+  width:340px;
+  padding:30px;
+  border-radius:30px;
+  text-align:center;
+  box-shadow:0 20px 60px rgba(0,0,0,.6);
+}
+
+h2{
+  margin:0 0 20px;
+  font-weight:600;
+}
+
+.counter{
+  font-size:70px;
+  font-weight:bold;
+  margin:20px 0;
+}
+
+.zikr{
+  opacity:.7;
+  margin-bottom:20px;
+}
+
+.circle-btn{
+  width:170px;
+  height:170px;
+  border-radius:50%;
+  border:none;
+  font-size:22px;
+  background: linear-gradient(145deg,#22c55e,#16a34a);
+  color:white;
+  box-shadow:0 10px 30px rgba(34,197,94,.4);
+  cursor:pointer;
+  transition:.1s;
+}
+
+.circle-btn:active{
+  transform:scale(.95);
+}
+
+.row{
+  margin-top:20px;
+  display:flex;
+  gap:10px;
+  justify-content:center;
+}
+
+.small-btn{
+  flex:1;
+  padding:10px;
+  border-radius:12px;
+  border:none;
+  background:#334155;
+  color:white;
+  cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+<h2>صدقة جارية لمهند السيوف 🤍</h2>
+
+<div class="zikr" id="zikrText">سبحان الله</div>
+
+<div class="counter" id="count">0</div>
+
+<button class="circle-btn" onclick="tasbeah()">اضغط</button>
+
+<div class="row">
+  <button class="small-btn" onclick="changeZikr()">تغيير الذكر</button>
+  <button class="small-btn" onclick="reset()">إعادة</button>
+</div>
+
+</div>
+
+<script>
+let count = parseInt(localStorage.getItem("count")) || 0;
+let zikrIndex = 0;
+
+const azkar = [
+  "سبحان الله",
+  "الحمد لله",
+  "الله أكبر",
+  "لا إله إلا الله"
+];
+
+const countEl = document.getElementById("count");
+const zikrEl = document.getElementById("zikrText");
+
+countEl.innerText = count;
+
+function tasbeah(){
+  count++;
+  countEl.innerText = count;
+  localStorage.setItem("count", count);
+
+  if(navigator.vibrate) navigator.vibrate(25);
+
+  if(count % 33 === 0){
+    if(navigator.vibrate) navigator.vibrate([60,50,60]);
+  }
+}
+
+function reset(){
+  count = 0;
+  countEl.innerText = 0;
+  localStorage.setItem("count", 0);
+}
+
+function changeZikr(){
+  zikrIndex = (zikrIndex + 1) % azkar.length;
+  zikrEl.innerText = azkar[zikrIndex];
+}
+</script>
+
+</body>
+</html>
